@@ -77,14 +77,17 @@ class Graph {
         const visited = {}
         const queue = [vertex]
         let currVertex
+        visited[vertex] = true
 
         while (queue.length) {
             currVertex = queue.shift()
-            if (!visited[currVertex]) {
-                results.push(currVertex)
-                visited[currVertex] = true
-                this.adjacencyList[currVertex].forEach(neighbor => queue.push(neighbor))
-            }
+            results.push(currVertex)
+            this.adjacencyList[currVertex].forEach(neighbor => {
+                if (!visited[neighbor]) {
+                    visited[neighbor] = true
+                    queue.push(neighbor)
+                }
+            })
         }
         return results
     }
